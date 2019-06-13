@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+
+    <head>
+        <style>
+            .card {
+                background-color:cyan;
+                padding: 10px;
+                margin:10px;
+                display:inline-block;
+                border-radius:5px;
+                box-shadow:2px 2px 2px black;
+                width:200px;
+            }
+            body{
+            
+            background-image: url("background.jpg");
+            background-image: center; 
+            background-repeat:repeat;
+            text-align: center;
+            background-color: black;
+            background-position:12ch;
+           
+    
+        }
+        h1{
+            font-family: "Lobster", Sans-serif;
+            text-decoration-color : rgba(105, 18, 18, 0.295);
+            font-size: 90;
+            color:rgb(156, 5, 5);
+            background-color: rgb(2, 1, 1);
+            border: double;
+            text-decoration-line:underline;
+            position: 0%;
+            letter-spacing: 0.4cm;
+            }
+                        
+        input{
+			color:blueviolet;
+			font-size:90;
+		}
+
+            
+        </style>
+        
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+            
+        <script>
+            var data;
+            var data2;
+            function getData(){
+            
+                $.get("http://10.79.164.98:8500/movies", function(results){
+                    data = JSON.parse(results);
+                    //document.write(data);
+                });
+                $.get("http://10.79.164.98:8500/marvelcharacters", function(results){
+                    data2 = JSON.parse(results);
+                    //document.write(data);
+                });
+                
+            }
+            
+            function getCustomers(){
+                var build ="";
+                var output = document.getElementById("output");
+                for (var i=0; i<data.length; i++){
+                   /* build +=<img src="html5.gif" alt="HTML5 Icon" width="128" height="128"><img>*/
+                    build += "<div class ='card'>" ;
+                    build += "Director Name:" + data[i].Director+ "<br>";
+                    build += "<br>";
+                    build += "Title: "  + data[i].Title +"<br>";
+                    build += "<br>";
+                    build += "ReleaseDate:"  + data[i].ReleaseDate +"<br>" ;
+                    build += "<br>";
+                    build += "Duration:"+ data[i]. Duration + "<br>" ;
+                    build += "<br>";
+                    build += "Actor Name:" + data[i]. Actor + "<br>";
+                    build += "<br>";
+                    build +="<img src='https://terrigen-cdn-dev.marvel.com/content/prod/1x/avengersendgame_lob_crd_05_2.jpg' alt='ENDGAME' style='width:100%'>";
+                    build+="<div class='container'>";
+                    build += "</div>";
+                    build += "</div>";
+                }
+                output.innerHTML = build;
+            }
+            function getNames(){
+                var build="";
+                var output2=document.getElementById("output2");
+                for (var i=0; i<data2.length; i++){
+                    build += "<div class ='card'>" ;
+                    build += "Title:" + data2[i].Title+ "<br>" ;
+                    build += "<br>";
+                    build += "Name:" + data2[i].Name +"<br>" ;
+                    build += "<br>";
+                    build += "Origin:" + data2[i].Origin +"<br>" ;
+                    build += "<br>";
+                    build += "Abilities:" + data2[i]. Abilities + "<br>" ;
+                    build += "<br>";
+                    build += "Villains:" + data2[i]. Villain + "<br>" ;
+                    build += "<br>";
+                    build += "Symbol:" + data2[i]. Symbol + "<br>";
+                    build += "</div>" ;
+                    
+                }
+                output2.innerHTML=build;
+            }
+
+            
+        </script>
+    </head>
+    
+    <body onload="getData()">
+        
+        
+    <div class="w3-container w3-black w3-center w3-allerta">
+            <h1>MARVEL COMICS</h1>
+    </div>
+    <input type="button" onclick="getCustomers(data)" value="Movies">
+        <div id="output"></div>
+    
+    <input type="button" onclick="getNames(data2)" value="Characters">
+    <div id="output2"></div>
+    <body>
+
+</html>
